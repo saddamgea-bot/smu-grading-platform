@@ -46,7 +46,7 @@ export default function ContactPage() {
                 <Phone className="h-5 w-5 text-primary mt-0.5" />
                 <div>
                   <h3 className="font-semibold">Phone Support</h3>
-                  <p className="text-muted-foreground">+65 6828 0100</p>
+                  <p className="text-muted-foreground">+65 6808 5172</p>
                   <p className="text-sm text-muted-foreground">For urgent technical issues</p>
                 </div>
               </div>
