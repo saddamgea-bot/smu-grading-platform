@@ -104,7 +104,7 @@ function CourseCard({ course }: { course: any }) {
           </Button>
           <Button asChild variant="outline" className="academic-button bg-transparent" size="sm">
             <Link href={`/courses/${course.id}/assessments/midterm-2024/rubric`}>
-              <MessageSquare className="h-4 w-4" />
+              
             </Link>
           </Button>
         </div>

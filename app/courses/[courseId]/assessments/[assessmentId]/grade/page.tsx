@@ -391,7 +391,7 @@ export default function GradingWorkbench({ params }: GradingWorkbenchProps) {
                 <Tabs defaultValue="knowledge" className="w-full">
                   <TabsList className="grid w-full grid-cols-3">
                     <TabsTrigger value="knowledge">Knowledge Base</TabsTrigger>
-                    
+
                     <TabsTrigger value="context">Grading Context &amp; Training</TabsTrigger>
                   </TabsList>
 
@@ -632,7 +632,7 @@ export default function GradingWorkbench({ params }: GradingWorkbenchProps) {
                         <div className="resize-handle"></div>
                       </TableHead>
                       <TableHead className="w-64 resizable-column">
-                        AI Feedback &amp; Reasoning<div class="resize-handle"></div>
+                        AI Feedback &amp; Reasoning
                         <div className="resize-handle"></div>
                       </TableHead>
                       <TableHead className="w-24 resizable-column">

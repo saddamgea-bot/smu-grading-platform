@@ -5,7 +5,6 @@ import type React from "react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -14,7 +13,6 @@ import { Separator } from "@/components/ui/separator"
 import {
   MessageSquare,
   Send,
-  Search,
   Bot,
   User,
   Database,
@@ -281,7 +279,7 @@ export default function AIChat() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <Card className="lg:col-span-1">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
@@ -325,53 +323,6 @@ export default function AIChat() {
                 ))}
               </div>
             </ScrollArea>
-          </CardContent>
-        </Card>
-
-        {/* Knowledge Sources Panel */}
-        <Card className="lg:col-span-1">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Database className="h-5 w-5" />
-              Knowledge Sources
-            </CardTitle>
-            <div className="relative">
-              <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search sources..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-8"
-              />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <ScrollArea className="h-[400px]">
-              <div className="space-y-2">
-                {filteredSources.map((source) => (
-                  <div
-                    key={source.id}
-                    className={`p-3 rounded-lg border cursor-pointer transition-colors ${
-                      selectedSources.includes(source.id) ? "bg-primary/10 border-primary" : "hover:bg-muted"
-                    }`}
-                    onClick={() => toggleSource(source.id)}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <p className="text-sm font-medium">{source.name}</p>
-                        <p className="text-xs text-muted-foreground">{source.course}</p>
-                      </div>
-                      <Badge variant="outline" className="text-xs">
-                        {source.type}
-                      </Badge>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </ScrollArea>
-            <div className="mt-4 pt-4 border-t">
-              <p className="text-xs text-muted-foreground">{selectedSources.length} sources selected</p>
-            </div>
           </CardContent>
         </Card>
 

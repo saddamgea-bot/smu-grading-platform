@@ -10,7 +10,7 @@ export default function AboutPage() {
     <div className="container py-8 space-y-12">
       <section className="text-center space-y-4 max-w-3xl mx-auto">
         <Image
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/image-16ZntwJd09bGZ7IjlsJeq53hGyyEru.png"
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/image%281%29-T7Y3PgJ4PDh371HQahkZTjrzOTrgDI.png"
           alt="SMU Logo"
           width={120}
           height={120}
