@@ -75,14 +75,6 @@ This repository contains the frontend and backend codebase, primarily developed 
 - Database: PostgreSQL / MongoDB (if applicable)
 - AI Integration: Retrieval-Augmented Generation (RAG) with LLMs (OpenAI API or custom models)
 
-## Deployment
-
-Your project is live at:
-
-**[https://vercel.com/saddamgea-bots-projects/v0-smu-grading-platform](https://vercel.com/saddamgea-bots-projects/v0-smu-grading-platform)**
-
-## Development
-
 ### Prerequisites
 - Node.js (>= 18.x)
 - npm or yarn
