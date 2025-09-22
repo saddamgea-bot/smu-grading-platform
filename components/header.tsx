@@ -52,7 +52,7 @@ export default function Header() {
       <div className="container flex h-16 items-center">
         <Link href="/" className="mr-6 flex items-center space-x-3">
           <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/image%281%29-GMMcbYclf1j3EFyROCax71cpFH6Jpd.png"
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/image%281%29%281%29-YZySXz0DyhIaths1i7o0o00wyWCCHq.png"
             alt="SMU Logo"
             width={40}
             height={40}
