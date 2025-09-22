@@ -10,6 +10,8 @@ import { Badge } from "@/components/ui/badge"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Separator } from "@/components/ui/separator"
+import { Input } from "@/components/ui/input"
+import { Search } from "lucide-react"
 import {
   MessageSquare,
   Send,
@@ -84,6 +86,7 @@ export default function AIChat() {
   const [attachments, setAttachments] = useState<Attachment[]>([])
   const [showAttachmentDialog, setShowAttachmentDialog] = useState(false)
   const [showKnowledgeBaseDialog, setShowKnowledgeBaseDialog] = useState(false)
+  const [knowledgeSearchQuery, setKnowledgeSearchQuery] = useState("")
 
   const currentSession = chatSessions.find((s) => s.id === currentSessionId)
   const messages = currentSession?.messages || []
@@ -137,6 +140,14 @@ export default function AIChat() {
       (searchQuery === "" ||
         source.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         source.course.toLowerCase().includes(searchQuery.toLowerCase())),
+  )
+
+  const filteredKnowledgeBaseSources = knowledgeSources.filter(
+    (source) =>
+      source.accessible &&
+      (knowledgeSearchQuery === "" ||
+        source.name.toLowerCase().includes(knowledgeSearchQuery.toLowerCase()) ||
+        source.course.toLowerCase().includes(knowledgeSearchQuery.toLowerCase())),
   )
 
   const createNewChat = () => {
@@ -489,74 +500,98 @@ export default function AIChat() {
                       Knowledge Base - Course Materials
                     </DialogTitle>
                   </DialogHeader>
+                  <div className="mb-4">
+                    <div className="relative">
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        placeholder="Search knowledge base..."
+                        value={knowledgeSearchQuery}
+                        onChange={(e) => setKnowledgeSearchQuery(e.target.value)}
+                        className="pl-10"
+                      />
+                    </div>
+                  </div>
                   <ScrollArea className="h-[60vh]">
                     <div className="space-y-6">
-                      {Array.from(new Set(knowledgeSources.map((s) => s.course))).map((course) => (
-                        <div key={course} className="space-y-3">
-                          <div className="flex items-center gap-2">
-                            <BookOpen className="h-4 w-4" />
-                            <h3 className="text-lg font-semibold">{course}</h3>
-                            <Badge variant="secondary">
-                              {knowledgeSources.filter((s) => s.course === course && s.accessible).length} materials
-                            </Badge>
-                          </div>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            {knowledgeSources
-                              .filter((source) => source.course === course)
-                              .map((source) => (
-                                <div
-                                  key={source.id}
-                                  className={`p-4 rounded-lg border transition-colors ${
-                                    source.accessible
-                                      ? "hover:bg-muted cursor-pointer"
-                                      : "opacity-50 cursor-not-allowed bg-muted/50"
-                                  }`}
-                                  onClick={() => {
-                                    if (source.accessible) {
-                                      addKnowledgeSource(source.id)
-                                      setShowKnowledgeBaseDialog(false)
-                                    }
-                                  }}
-                                >
-                                  <div className="flex items-start justify-between">
-                                    <div className="flex-1">
-                                      <div className="flex items-center gap-2 mb-2">
-                                        {source.type === "pdf" && <FileText className="h-4 w-4 text-red-500" />}
-                                        {source.type === "doc" && <FileText className="h-4 w-4 text-blue-500" />}
-                                        {source.type === "rubric" && <Database className="h-4 w-4 text-green-500" />}
-                                        {source.type === "syllabus" && <BookOpen className="h-4 w-4 text-purple-500" />}
-                                        <Badge variant="outline" className="text-xs">
-                                          {source.type}
-                                        </Badge>
+                      {filteredKnowledgeBaseSources.length === 0 ? (
+                        <div className="text-center py-8">
+                          <Database className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                          <p className="text-muted-foreground">
+                            {knowledgeSearchQuery
+                              ? "No materials found matching your search."
+                              : "No accessible materials found."}
+                          </p>
+                        </div>
+                      ) : (
+                        Array.from(new Set(filteredKnowledgeBaseSources.map((s) => s.course))).map((course) => (
+                          <div key={course} className="space-y-3">
+                            <div className="flex items-center gap-2">
+                              <BookOpen className="h-4 w-4" />
+                              <h3 className="text-lg font-semibold">{course}</h3>
+                              <Badge variant="secondary">
+                                {filteredKnowledgeBaseSources.filter((s) => s.course === course).length} materials
+                              </Badge>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                              {filteredKnowledgeBaseSources
+                                .filter((source) => source.course === course)
+                                .map((source) => (
+                                  <div
+                                    key={source.id}
+                                    className={`p-4 rounded-lg border transition-colors ${
+                                      source.accessible
+                                        ? "hover:bg-muted cursor-pointer"
+                                        : "opacity-50 cursor-not-allowed bg-muted/50"
+                                    }`}
+                                    onClick={() => {
+                                      if (source.accessible) {
+                                        addKnowledgeSource(source.id)
+                                        setShowKnowledgeBaseDialog(false)
+                                      }
+                                    }}
+                                  >
+                                    <div className="flex items-start justify-between">
+                                      <div className="flex-1">
+                                        <div className="flex items-center gap-2 mb-2">
+                                          {source.type === "pdf" && <FileText className="h-4 w-4 text-red-500" />}
+                                          {source.type === "doc" && <FileText className="h-4 w-4 text-blue-500" />}
+                                          {source.type === "rubric" && <Database className="h-4 w-4 text-green-500" />}
+                                          {source.type === "syllabus" && (
+                                            <BookOpen className="h-4 w-4 text-purple-500" />
+                                          )}
+                                          <Badge variant="outline" className="text-xs">
+                                            {source.type}
+                                          </Badge>
+                                        </div>
+                                        <h4 className="font-medium text-sm mb-1">{source.name}</h4>
+                                        <p className="text-xs text-muted-foreground">
+                                          Last updated: {source.lastUpdated.toLocaleDateString()}
+                                        </p>
+                                        {!source.accessible && (
+                                          <p className="text-xs text-red-500 mt-1">Access restricted</p>
+                                        )}
                                       </div>
-                                      <h4 className="font-medium text-sm mb-1">{source.name}</h4>
-                                      <p className="text-xs text-muted-foreground">
-                                        Last updated: {source.lastUpdated.toLocaleDateString()}
-                                      </p>
-                                      {!source.accessible && (
-                                        <p className="text-xs text-red-500 mt-1">Access restricted</p>
+                                      {source.accessible && (
+                                        <Button
+                                          size="sm"
+                                          variant="ghost"
+                                          className="h-8 w-8 p-0"
+                                          onClick={(e) => {
+                                            e.stopPropagation()
+                                            addKnowledgeSource(source.id)
+                                            setShowKnowledgeBaseDialog(false)
+                                          }}
+                                        >
+                                          <Plus className="h-4 w-4" />
+                                        </Button>
                                       )}
                                     </div>
-                                    {source.accessible && (
-                                      <Button
-                                        size="sm"
-                                        variant="ghost"
-                                        className="h-8 w-8 p-0"
-                                        onClick={(e) => {
-                                          e.stopPropagation()
-                                          addKnowledgeSource(source.id)
-                                          setShowKnowledgeBaseDialog(false)
-                                        }}
-                                      >
-                                        <Plus className="h-4 w-4" />
-                                      </Button>
-                                    )}
                                   </div>
-                                </div>
-                              ))}
+                                ))}
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        ))
+                      )}
                     </div>
                   </ScrollArea>
                   <div className="flex justify-end pt-4 border-t">
