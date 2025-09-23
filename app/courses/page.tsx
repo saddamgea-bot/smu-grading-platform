@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
-import { MessageSquare, Plus } from "lucide-react"
+import { Plus } from "lucide-react"
 
 export default function CoursesPage() {
   return (
@@ -71,6 +71,8 @@ export default function CoursesPage() {
 }
 
 function CourseCard({ course }: { course: any }) {
+  const hasAssessmentAccess = !["mkt201", "ops301"].includes(course.id)
+
   return (
     <Card className="academic-card h-full overflow-hidden hover:shadow-lg transition-shadow">
       <CardContent className="p-4">
@@ -99,13 +101,17 @@ function CourseCard({ course }: { course: any }) {
           </div>
         </div>
         <div className="flex space-x-2">
-          <Button asChild className="flex-1 academic-button bg-primary text-primary-foreground" size="sm">
-            <Link href={`/courses/${course.id}/assessments`}>Assessments</Link>
-          </Button>
+          {hasAssessmentAccess ? (
+            <Button asChild className="flex-1 academic-button bg-primary text-primary-foreground" size="sm">
+              <Link href={`/courses/${course.id}/assessments`}>Assessments</Link>
+            </Button>
+          ) : (
+            <div className="flex-1 flex items-center justify-center py-2 px-3 text-sm text-muted-foreground bg-muted/50 rounded-md">
+              View Only Access
+            </div>
+          )}
           <Button asChild variant="outline" className="academic-button bg-transparent" size="sm">
-            <Link href={`/courses/${course.id}/assessments/midterm-2024/rubric`}>
-              
-            </Link>
+            <Link href={`/courses/${course.id}/assessments/midterm-2024/rubric`}>Rubric</Link>
           </Button>
         </div>
       </CardContent>

@@ -319,37 +319,7 @@ export default function CreateCoursePage() {
             {/* Syllabus Upload */}
             <div className="space-y-2">
               <Label>Course Syllabus</Label>
-              <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-6">
-                <div className="text-center">
-                  <Upload className="mx-auto h-12 w-12 text-muted-foreground/50" />
-                  <div className="mt-4">
-                    <Label htmlFor="syllabus" className="cursor-pointer">
-                      <span className="text-sm font-medium text-primary hover:text-primary/80">
-                        Click to upload syllabus
-                      </span>
-                      <Input
-                        id="syllabus"
-                        type="file"
-                        accept=".pdf"
-                        onChange={handleSyllabusUpload}
-                        className="hidden"
-                      />
-                    </Label>
-                    <p className="text-xs text-muted-foreground mt-1">PDF files only</p>
-                  </div>
-                </div>
-                {syllabusFile && (
-                  <div className="mt-4 p-3 bg-muted rounded-lg flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <FileText className="h-4 w-4" />
-                      <span className="text-sm">{syllabusFile.name}</span>
-                    </div>
-                    <Button type="button" variant="ghost" size="sm" onClick={() => setSyllabusFile(null)}>
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                )}
-              </div>
+              
             </div>
 
             <Separator />
