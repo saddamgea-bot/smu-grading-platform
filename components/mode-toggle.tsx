@@ -19,10 +19,10 @@ export function ModeToggle() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="rounded-xl border-2">
         <DropdownMenuItem onClick={() => setTheme("light")} className="font-medium cursor-pointer">
-          Black &amp; White
+          Light Mode
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("dark")} className="font-medium cursor-pointer">
-          Normal
+          Dark Mode
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("system")} className="font-medium cursor-pointer">
           Color Blind

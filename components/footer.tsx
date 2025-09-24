@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="flex flex-col items-center md:items-start">
             <div className="flex items-center mb-2">
               <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/image%281%29%281%29-kheXeIExY1AAZjtNPPf7ZhC2GIkr68.png"
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/image%281%29%281%29%281%29-2oCjJEW0stz3WmAZFFJNjwjWupfVzv.png"
                 alt="SMU Logo"
                 width={40}
                 height={40}

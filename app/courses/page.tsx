@@ -100,20 +100,15 @@ function CourseCard({ course }: { course: any }) {
             ))}
           </div>
         </div>
-        <div className="flex space-x-2">
-          {hasAssessmentAccess ? (
-            <Button asChild className="flex-1 academic-button bg-primary text-primary-foreground" size="sm">
-              <Link href={`/courses/${course.id}/assessments`}>Assessments</Link>
-            </Button>
-          ) : (
-            <div className="flex-1 flex items-center justify-center py-2 px-3 text-sm text-muted-foreground bg-muted/50 rounded-md">
-              View Only Access
-            </div>
-          )}
-          <Button asChild variant="outline" className="academic-button bg-transparent" size="sm">
-            <Link href={`/courses/${course.id}/assessments/midterm-2024/rubric`}>Rubric</Link>
+        {hasAssessmentAccess ? (
+          <Button asChild className="w-full academic-button bg-primary text-primary-foreground" size="sm">
+            <Link href={`/courses/${course.id}/assessments`}>Assessments</Link>
           </Button>
-        </div>
+        ) : (
+          <div className="w-full flex items-center justify-center py-2 px-3 text-sm text-muted-foreground bg-muted/50 rounded-md">
+            View Only Access
+          </div>
+        )}
       </CardContent>
     </Card>
   )
